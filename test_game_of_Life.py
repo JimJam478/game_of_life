@@ -8,7 +8,6 @@ def test_grid():
                     [0,0,0,0,0],
                     [0,0,0,0,0],
                     [0,0,0,0,0]]
-
 def test_make_alive():
     grid = [[0,0,0],
             [0,0,0],
@@ -18,7 +17,6 @@ def test_make_alive():
     assert alive_cell == [[0,0,0],
                           [0,0,0],
                           [1,0,0]]
-
 def test_display():
     grid = [[0,0,0],
             [0,0,0],
@@ -29,3 +27,12 @@ def test_display():
 - - - 
 - * - 
 """
+
+def test_neighbour_count():
+    grid = [[0,0,0],
+            [0,1,0],
+            [0,1,1]]
+    neighbours = [[1,1,1],[2,2,3],[2,2,3]]
+    count = game_of_life.get_neighbour_count(grid)
+    assert count == neighbours
+    
