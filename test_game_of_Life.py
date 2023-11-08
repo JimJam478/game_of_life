@@ -12,7 +12,7 @@ def test_make_alive():
     grid = [[0,0,0],
             [0,0,0],
             [0,0,0]]
-    board = {"dimension":(5,5),"alive":(2,0)}
+    board = {"dimension":(5,5),"alive":[(2,0)]}
     alive_cell = game_of_life.get_alive_cell(grid,board)
     assert alive_cell == [[0,0,0],
                           [0,0,0],
