@@ -23,9 +23,9 @@ def test_display():
             [0,1,0]]
     
     display = game_of_life.display_grid(grid)
-    assert display == """ - | - | - |
- - | - | - |
- - | * | - |
+    assert display == """   |   |   |
+   |   |   |
+   | * |   |
 """
 
 def test_neighbour_count():
@@ -45,6 +45,7 @@ def test_game_rules():
     assert result == [[0,1,0],
                       [0,1,0],
                       [0,1,0]]
+
 
 
     

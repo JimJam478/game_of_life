@@ -19,25 +19,10 @@ def display_grid(grid):
             if grid[i][j] == 1:
                 display += " * |"
             else:
-                display += " - |"
+                display += "   |"
         display += "\n"
     return display
 
-# def get_neighbour_count(grid):
-#     neighbour_count_list = []
-#     for i in range(len(grid)):
-#         for j in range(len(grid[0])):
-#             neighbour_count = 0
-#             for x in range(i - 1, i + 2):
-#                 for y in range(j - 1, j + 2):
-#                     if x >= 0 and x < len(grid) and y >= 0 and y < len(grid[0]) and (x, y) != (i, j):
-#                         neighbour_count += grid[x][y]
-#             neighbour_count_list.append(neighbour_count)
-#     k = len(grid)
-#     neighbours = []
-#     for i in range(0, k):
-#         neighbours.append(neighbour_count_list[i::k])
-#     return neighbours 
 def get_neighbour_count(grid):
     rows = len(grid)
     cols = len(grid[0])
@@ -69,35 +54,47 @@ def get_next_Gen(grid,neighbours):
                     grid[i][j] = 1
     return grid 
 
-# def main():
-#     board = {}
-#     row = int(input('Enter dimension (row): '))
-#     col = int(input('Enter dimension (col): '))
-#     board["dimension"] = (row,col)
-#     grid = get_grid(board)
-    
-#     print(display_grid(grid))
-#     board["alive"] = []
-#     while True:
-#         starter = input('Add an alive cell ? (y/n): ')
-#         if starter in ['Y','y']:
-#             alive_row = int(input('Enter alive cell row: '))
-#             alive_col = int(input('Enter alive cells col: '))
-#             board["alive"].append((alive_row,alive_col))
-#             print(board)
-#             alive_grid = get_alive_cell(grid,board)
-#         else:
-#             break
-#     print(alive_grid)
-#     print(display_grid(alive_grid))
-#     print("---------------------------------------------")
-#     neighbours = get_neighbour_count(alive_grid)
-#     print(neighbours)
-#     next_gen = get_next_Gen(alive_grid,neighbours)
-#     print(display_grid(next_gen))
-
+def main():
+    board = {}
+    row = int(input('Enter dimension (row): '))
+    col = int(input('Enter dimension (col): '))
+    board["dimension"] = (row,col)
+    grid = get_grid(board)
+    print(display_grid(grid))
+    board["alive"] = []
+    while True:
+        starter = input('Add an alive cell ? (y/n): ')
+        if starter in ['Y','y']:
+            alive_row = int(input('Enter alive cell row: '))
+            alive_col = int(input('Enter alive cells col: '))
+            board["alive"].append((alive_row,alive_col))
+            alive_grid = get_alive_cell(grid,board)
+        else:
+            break
+    print(display_grid(alive_grid))
+    print("---------------------------------------------")
+    while True:
+        cont = input("""See next generation. 
+If yes, enter c
+If no, enter s
+If you have to add another alive cell, enter a  
+-----------------> """)
+        if cont in ['c','C']:
+            neighbours = get_neighbour_count(alive_grid)
+            next_gen = get_next_Gen(alive_grid,neighbours)
+            print(display_grid(next_gen))
+        if cont in ['a','A']:
+            alive_row = int(input('Enter alive cell row: '))
+            alive_col = int(input('Enter alive cells col: '))
+            board["alive"].append((alive_row,alive_col))
+            new_grid = get_alive_cell(next_gen,board)
+            print(display_grid(new_grid))
+        if cont in ['s','S']:
+            break
+    print("Game stopped !!")
         
-# main()
+if __name__ == "__main__":
+    main()
 
 
     
