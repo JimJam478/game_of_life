@@ -23,20 +23,37 @@ def display_grid(grid):
         display += "\n"
     return display
 
+# def get_neighbour_count(grid):
+#     neighbour_count_list = []
+#     for i in range(len(grid)):
+#         for j in range(len(grid[0])):
+#             neighbour_count = 0
+#             for x in range(i - 1, i + 2):
+#                 for y in range(j - 1, j + 2):
+#                     if x >= 0 and x < len(grid) and y >= 0 and y < len(grid[0]) and (x, y) != (i, j):
+#                         neighbour_count += grid[x][y]
+#             neighbour_count_list.append(neighbour_count)
+#     k = len(grid)
+#     neighbours = []
+#     for i in range(0, k):
+#         neighbours.append(neighbour_count_list[i::k])
+#     return neighbours 
 def get_neighbour_count(grid):
-    neighbour_count_list = []
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            neighbour_count = 0
-            for x in range(i - 1, i + 2):
-                for y in range(j - 1, j + 2):
-                    if x >= 0 and x < len(grid) and y >= 0 and y < len(grid[0]) and (x, y) != (i, j):
-                        neighbour_count += grid[x][y]
-            neighbour_count_list.append(neighbour_count)
-    k = len(grid)
-    neighbours = []
-    for i in range(0, k):
-        neighbours.append(neighbour_count_list[i::k])
+    rows = len(grid)
+    cols = len(grid[0])
+    neighbours = [[0 for _ in range(cols)] for _ in range(rows)]
+    for i in range(rows):
+        for j in range(cols):
+            neighbors_count = 0
+            for x in [-1, 0, 1]:
+                for y in [-1, 0, 1]:
+                    if x == 0 and y == 0:
+                        continue  
+                    new_i,new_j = i + x,j + y 
+                    if 0 <= new_i < rows and 0 <= new_j < cols:
+                        if grid[new_i][new_j] == 1:
+                            neighbors_count += 1
+            neighbours[i][j] = neighbors_count
     return neighbours
 
 def get_next_Gen(grid,neighbours):
@@ -45,7 +62,7 @@ def get_next_Gen(grid,neighbours):
     for i in range(row):
         for j in range(col):
             if grid[i][j]:
-                if neighbours[i][j] not in range(2,4):
+                if neighbours[i][j] not in [2,3]:
                     grid[i][j] = 0
             if not grid[i][j]:
                 if neighbours[i][j] == 3:
@@ -71,8 +88,14 @@ def get_next_Gen(grid,neighbours):
 #             alive_grid = get_alive_cell(grid,board)
 #         else:
 #             break
-    
-#     display_grid(alive_grid)
+#     print(alive_grid)
+#     print(display_grid(alive_grid))
+#     print("---------------------------------------------")
+#     neighbours = get_neighbour_count(alive_grid)
+#     print(neighbours)
+#     next_gen = get_next_Gen(alive_grid,neighbours)
+#     print(display_grid(next_gen))
+
         
 # main()
 
