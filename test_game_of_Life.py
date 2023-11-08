@@ -23,16 +23,18 @@ def test_display():
             [0,1,0]]
     
     display = game_of_life.display_grid(grid)
-    assert display == """- - - 
-- - - 
-- * - 
+    assert display == """ - | - | - |
+ - | - | - |
+ - | * | - |
 """
 
 def test_neighbour_count():
-    grid = [[0,0,0],
+    grid = [[1,0,1],
             [0,1,0],
-            [0,1,1]]
-    neighbours = [[1,1,1],[2,2,3],[2,2,3]]
+            [1,0,1]]
+    neighbours = [[1,3,1],[3,4,3],[1,3,1]]
     count = game_of_life.get_neighbour_count(grid)
     assert count == neighbours
+
+
     
