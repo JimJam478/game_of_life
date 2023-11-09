@@ -83,12 +83,25 @@ def main():
             """Generate the next generation: 
 Yes (c)
 No (s)
+New Alive Cell (a)
 > """
         )
         if cont in ["c", "C"]:
             neighbours = get_neighbour_count(alive_grid)
             next_gen = get_next_Gen(alive_grid, neighbours)
             print(display_grid(next_gen))
+        
+        if cont in ['a','A']:
+            alive_row = input("Enter alive cell row: ")
+            alive_col = input("Enter alive cells col: ")
+            new_board = {}
+            new_board["alive"] = []
+            new_board["alive"].append((int(alive_row),int(alive_col)))
+            new_grid = get_alive_cell(next_gen, new_board)
+            print(display_grid(new_grid))
+            alive_grid = new_grid
+
+ 
         if cont in ["s", "S"]:
             break
     print("Game stopped !!")
